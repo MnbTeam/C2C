@@ -1,0 +1,22 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///c2c?serverTimezone=UTC
+    username: root
+    password: root
+  thymeleaf:
+    encoding: UTF-8
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+mybatis:
+  type-aliases-package: com.dg.pojo
+  configuration-properties: 
+    auto-mapping-behavior: full
+    use-generated-keys: true
+    
+
+   
