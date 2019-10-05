@@ -1,10 +1,22 @@
+mybatis:
+  type-aliases-package: com.dg.pojo
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  page-size-zero: true
+
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///c2c?serverTimezone=UTC
     username: root
-    password: root
+    password: 123456
   thymeleaf:
     encoding: UTF-8
     cache: false
@@ -12,11 +24,5 @@ spring:
     suffix: .html
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-mybatis:
-  type-aliases-package: com.dg.pojo
-  configuration-properties: 
-    auto-mapping-behavior: full
-    use-generated-keys: true
-    
 
-   
+
