@@ -17,14 +17,15 @@ $( function() {
             }else{
 //                        修改，修改类名或id，直接获取类名就可以
                 var value =$(this).siblings(".first_info").children("input").val();
-                var arr =   which_update + "=" + value + "&" + "token=" + token+"" ;
+                var map =   '{"'+which_update+'":"' + value + '"}';
+                alert(map);
                 $.ajax({
-                    url:'/certification.do',
+                    url:'certification.do',
                     type:'post',
-                    dataType:'JSON',
-                    data:arr,
-                    success:function (data) {
-                        var result = data.result;
+                    dataType:'json',
+                    data:{json:map},
+                    success:function (results) {
+                        var result = results;
                         if (result === 0){
                             alert('更新失败，请检测信息格式');
                         } else if (result === 1){
@@ -53,7 +54,7 @@ $( function() {
 } );
 $(function () {
     if ($('.show_tip').is(':hidden')){
-        var show_tip = $('.show_tip').val();
+       // var show_tip = $('.show_tip').val();
         alert('请先认证真实信息！！！！！');
     }
 });

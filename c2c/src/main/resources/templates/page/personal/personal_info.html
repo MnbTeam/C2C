@@ -18,13 +18,13 @@
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="my_nav.html :: my_nav" class="my_nav"></nav>
 <div th:include="personal_nav.html :: personal_nav" class="personal_nav"></div>
-<div style="display: none"  class="show_tip" >
+<div style="display:block"  class="show_tip" >
 </div>
 <input type="hidden" class="token" />
 <div class="top_content">
     <div class="publish_product_div">
         <div id="accordion">
-            <h3>用户名：<span class="username_span" >123456</span></h3>
+            <h3>用户名：<span class="username_span" th:text="${userInformation.username}">123456</span></h3>
             <div class="info_content">
                 <div class="first_info">
                     <span>用户名：</span><input type="text" class="userName"/>
@@ -32,7 +32,7 @@
                 </div>
                 <button class="update_button">确认修改</button>
             </div>
-            <h3>真实姓名：<span class="realname_span" > &nbsp;</span></h3>
+            <h3>真实姓名：<span class="realname_span" th:text="${userInformation.realname}"> &nbsp;</span></h3>
             <div class="info_content">
                 <div class="first_info">
                     <span>真实姓名：</span><input type="text" class="realName"/>
@@ -40,15 +40,15 @@
                 </div>
                 <button class="update_button">确认修改</button>
             </div>
-            <h3>性别：<span class="sex_span" >男</span></h3>
+            <h3>性别：<span class="sex_span" th:text="${userInformation.gender}">男</span></h3>
             <div class="info_content">
                 <div class="first_info sex_info">
-                    <span>性别：</span><input class="gender" type="radio" name="sex_choose" value="1" checked="checked"/>男
-                    <input class="gender" type="radio" name="sex_choose" value="2"/>女
+                    <span>性别：</span><input class="gender" type="radio" name="sex_choose" value="男" checked="checked"/>男
+                    <input class="gender" type="radio" name="sex_choose" value="女"/>女
                 </div>
                 <button class="update_button">确认修改</button>
             </div>
-            <h3>学号：<span class="sno_span" >&nbsp;</span></h3>
+            <h3>学号：<span class="sno_span" th:text="${userInformation.sno}">&nbsp;</span></h3>
             <div class="info_content">
                 <div class="first_info">
                     <span>学号：</span><input type="text" class="sno"/>
@@ -56,18 +56,10 @@
                 </div>
                 <button class="update_button">确认修改</button>
             </div>
-            <h3>宿舍号：<span class="dormitory_span">&nbsp;</span></h3>
+            <h3>宿舍号：<span class="dormitory_span" th:text="${userInformation.dormitory}">&nbsp;</span></h3>
             <div class="info_content">
                 <div class="first_info">
                     <span>宿舍号：</span><input type="text" class="dormitory"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
-                </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>Email：<span class="email_span">&nbsp;</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>Email：</span><input type="text" class="email"/>
                     <span class="reqiure_enter"> 必须填写此字段</span>
                 </div>
                 <button class="update_button">确认修改</button>

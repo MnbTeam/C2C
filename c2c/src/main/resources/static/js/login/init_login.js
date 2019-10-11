@@ -44,11 +44,11 @@ $(function () {
             dataType: 'JSON',
             type: 'post',
             data: {name: name, phone: phone, code: code,token:token},
-            success: function (data) {
-                var result = data.result;
-                if (result === 0) {
+            success: function (results) {
+                var result = results;
+                if (result === 1) {
                     alert('验证码错误');
-                } else if (result === 1) {
+                } else if (result === 0) {
                     // 成功后执行以下代码进行跳转
                     $('.forget_password').show(1000);
                     css3Transform(document.getElementsByClassName('content')[0], "rotateY(-180deg)");
@@ -60,9 +60,10 @@ $(function () {
     });
     //填写密码然后登录
     $('.confirm_register_button').click(function () {
+        var phone = $('.register_input_phone').val();
+        var username = $('.input_nickname').val();
         var password = $('.first_enter_password_input').val();
         var password2 = $('.confirm_password_input').val();
-        var token = $('.token').val();
         if (password ===''||password2===''){
             alert('请填写信息');
             return;
@@ -77,11 +78,12 @@ $(function () {
                 url: 'insertUser.do',
                 dataType: 'JSON',
                 type: 'post',
-                data: {password: password, token: token},
-                success: function (data) {
-                    var result = data.result;
+                data: {username:username,phone:phone,password: password},
+                success: function (results) {
+                    var result = results;
                     if (result === 1) {
-                        window.location.href = '/';
+                        alert("成功了");
+                        window.location.href = 'http://localhost:8080/page/login_page.html';
                     } else if (result === 0) {
                         alert('发送了错误，0但是我不说');
                     } else {
@@ -247,22 +249,28 @@ $(function () {
     $('.get_vcode_button').click(function () {
         var phone = $('.register_input_phone').val();
         var token = $('.token').val();
+        var pattern = /^1[34578]\d{9}$/;
         if (phone===''){
             alert('请填写手机号码');
             return;
+        }
+        if(!pattern.test(phone)){
+            alert('请输入正确的手机号');
+            return ;
         }
         $.ajax({
             url: 'sendCode.do',
             dataType: 'JSON',
             type: 'post',
-            data: {phone: phone, token: token, action: 'register'},
-            success: function (date) {
-                var result = date.result;
-                if (result === '1') {
+            data: {phone: phone, action: 'register'},
+            success: function (results) {
+                var result = JSON.parse(results).code;
+                $(".token").val(JSON.parse(results).random);
+                if (result === 0) {
                     alert('已经发送到该手机，请查收');
-                } else if (result === '0') {
+                } else if (result === 1) {
                     alert('请填写正确的手机');
-                } else if (result === '-1') {
+                } else if (result === -1) {
                     alert('该手机号码已经被注册了');
                 } else {
                     alert('发送了错误，但是我不告诉你');

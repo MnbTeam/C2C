@@ -117,6 +117,7 @@ $(function () {
     $('.pagination_lt').click(function () {
         var current = $('.pagination_div ul li.current_page');
         var temp = current.children("a").html();
+
         //  已经达到最左边，再点无反应
         if (temp == 1) {
             return false;
