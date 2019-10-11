@@ -32,7 +32,14 @@ public class ShopInformation implements Serializable {
     private Integer sales;
 
     private String thumbnails;
+    private int count;
+    public Integer getCount() {
+        return count;
+    }
 
+    public void setCount(Integer id) {
+        this.count = count;
+    }
     public Integer getId() {
         return id;
     }

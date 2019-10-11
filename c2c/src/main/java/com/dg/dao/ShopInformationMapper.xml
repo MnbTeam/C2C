@@ -10,4 +10,14 @@
   <select id="selectNewOne" resultType="ShopInformation">
     SELECT * FROM shopinformation ORDER BY modified DESC LIMIT 0,1
   </select>
+  <select id="selectdetails" resultType="ShopInformation">
+    SELECT * FROM `shopinformation` WHERE id=#{id}
+  </select>
+  <select id="selectLike" resultType="ShopInformation">
+    SELECT * FROM `shopinformation`
+    WHERE NAME LIKE "%"#{name}"%"
+  </select>
+  <select id="selectAll" resultType="ShopInformation">
+    SELECT * FROM `shopinformation`
+  </select>
 </mapper>

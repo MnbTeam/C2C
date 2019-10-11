@@ -2,21 +2,23 @@
  * Created by wsk1103 on 2017/5/21.
  */
 $(function () {
-    $('.send_comment_button').click(function () {
+  /*  $('.send_comment_button').click(function () {
+        alert('ssss')
         var value = $('.comment_textarea').val();
-        var username = $('.wsk').val();
-        var token = $('.token').val();
+        var uid = $('.uid').val();
+        var sid = $('.sid').val();
+        var username=$('.usernames').val();
         var $comment = $('.comment_content');
         var id = $('.id').val();
-        if (username == '0') {
+        if (username == '') {
             alert('请先登录！！！');
             return;
         }
         $.ajax({
-            url: 'insertShopContext.do',
+            url: 'PlayContext',
             type: 'post',
             dataType:'JSON',
-            data:{id:id,context:value,token:token},
+            data:{uid:uid,Val:Val,sid:sid},
             success:function (data) {
                 var result = data.result;
                 if (result == 2){
@@ -24,16 +26,17 @@ $(function () {
                 } else if (result == 0){
                     alert("发表留言失败，请先检查格式");
                 } else if (result == 1){
-                    var name = data.username;
+                    alert("发表成功");
+                    /!*var name = data.username;
                     var time = data.time;
                     var context = data.context;
                     var cc = "<div class='one_comment'><span class='username'>用户："+name+"</span><span class='time'>发表于："+time+"</span><p class='content'>"+context+"</p></div>";
-                    $comment.append(cc);
+                    $comment.append(cc);*!/
                 }
             }
         });
-    });
-    $('.buy_button').click(function () {
+    });*/
+   /* $('.buy_button').click(function () {
         var id = $(this).attr('value');
         $.ajax({
             url:'/insertGoodsCar.do',
@@ -53,5 +56,5 @@ $(function () {
                 }
             }
         })
-    });
+    });*/
 });

@@ -105,7 +105,7 @@ $(function () {
             $(".pagination_div ul li.current_page").removeClass("current_page");
             $(this).addClass("current_page");
             //  点击的页数
-            var which_click = $(this).children("a").html();
+            var which_click  = $(this).children("a").html();
             //  在if里面处理
             if (cur !== which_click) {
                 selectByCounts(which_click);

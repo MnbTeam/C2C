@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dg.dao.PlaseShopMapper" >
+    <resultMap id="ant" type="UserWant">
+        <id column="id" property="id"></id>
+        <association property="us" javaType="UserInformation"></association>
+    </resultMap>
+    <select id="SelectPlase" resultMap="ant">
+        SELECT * FROM `userwant` w
+        INNER JOIN `userinformation` u
+        ON w.uid=u.id
+    </select>
+</mapper>

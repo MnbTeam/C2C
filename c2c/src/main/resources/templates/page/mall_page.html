@@ -19,7 +19,7 @@
 <div th:include="personal_nav.html :: personal_nav" class="personal_nav"></div>
 
 <div class="my_type_div">
-    <ul>
+    <ul th:if="${selectLike.getPages() >= 1}">
         <li class="type_1">数码科技</li>
         <li class="type_2">影音家电</li>
         <li class="type_3">鞋服配饰</li>
@@ -59,19 +59,20 @@
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="all_product">
         <div class="product_content_div">
-                <div class="detail_product" >
+            <a th:if="${selectLike.getPages() < 1}">没有查到有关：<span th:text="${likeName}" style="font-weight: bold;font-size: 30px"></span> 的商品请点击下方按钮返回商城</a>
+                <div class="detail_product" th:each="v:${selectLike}">
                     <input type="hidden"  name="id"/>
                     <div class="product_img_div">
                         <img src="/img/home/feature_prodects/cont2.jpg"  class="show_img"/>
                     </div>
                     <p class="show_tip" ></p>
-                    <span class="detail_product_name" >Big block Lether Bag</span><br/>
-                    <span class="detail_product_cost" >￥350.00元</span><br/>
+                    <span class="detail_product_name" th:value="${v.id}"  th:text="${v.name}">Big block Lether Bag</span><br/>
+                    <span class="detail_product_cost" th:text="${v.price}">￥350.00元</span><br/>
                     <span class="detail_buy product_1" >加入购物车</span>
                 </div>
         </div>
     </div>
-    <div class="pagination_div" onmouseleave="hideParticular()">
+    <!--<div class="pagination_div" onmouseleave="hideParticular()">
         <a class="pagination_lt">&lt;</a>
         <ul>
             <li class="current_page"><a>1</a></li>
@@ -81,6 +82,13 @@
             <li><a>5</a></li>
         </ul>
         <a class="pagination_gt">&gt;</a>
+    </div>-->
+    <div class="pagination_div" onmouseleave="hideParticular()">
+        <a class="pagination_lt" th:href="@{../selectAll(i=${selectLike.getPageNum()-1})}" th:if="${selectLike.getPageNum()!=1}">&lt;</a>
+        <ul>
+   <li th:each="li:${list}" STYLE="background-color: slateblue"><a th:text="${li}" th:if="${selectLike.getPageNum() != li}" style="color: white">1</a><a th:text="${li}" th:if="${selectLike.getPageNum() eq li}" style="font-size: 30px;font-weight: bold;color: black"></a></li>
+        </ul>
+        <a class="pagination_gt" th:href="@{../selectAll(i=${selectLike.getPageNum()+1})}" th:if="${selectLike.getPageNum()!=selectLike.getPages()}">&gt;</a>
     </div>
     <footer>
         <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>

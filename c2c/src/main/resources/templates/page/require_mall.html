@@ -242,17 +242,17 @@
 <div class="temp_content" onmousedown="hideParticular()">
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="require_content_div">
-        <div class="require_one_part" id="1" >
-            <span class="what_info">商品名：</span>
-            <span class="info_content" >苹果6s</span><br/>
+        <div class="require_one_part" id="1" th:each="v:${SelectPlase}">
+            <span class="what_info" >商品名：</span>
+            <span class="info_content" th:text="${v.name}">>苹果6s</span><br/>
             <span class="what_info">数量：</span>
-            <span class="info_content" >3</span><br/>
+            <span class="info_content" th:text="${v.quantity}">>3</span><br/>
             <span class="what_info">单价：</span>
-            <span class="info_content" >20.00</span><br/>
+            <span class="info_content" th:text="${v.price}">20.00</span><br/>
             <span class="what_info" >详情：</span>
 
-            <textarea readonly="readonly" class="info_content" style="resize: none;width: 250px;height: 100px"
-                     >这是一哈哈哈哈哈哈哈哈哈打撒打撒个商品，联系电话1111111111</textarea><br/>
+            <span readonly="readonly" class="info_content" style="font-weight: bold"
+                      th:text="${v.remark}" >这是一哈哈哈哈哈哈哈哈哈打撒打撒个商品.</span> <br/> <span th:text="'联系电话:'+${v.us.phone}" style="color: blue">sss</span><br/>
 
             <span class="what_info">分类：</span>
             <span class="info_content" >数码科技-手机-苹果</span><br/>

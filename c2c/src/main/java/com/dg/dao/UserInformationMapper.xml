@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dg.dao.UserInformationMapper" >
+    <select id="SelectUser" resultType="UserInformation">
+        SELECT * FROM `userinformation` WHERE `id` =7
+</select>
+    <insert id="Insert">
+        INSERT INTO `shopcontext` VALUES(0,NOW(),#{sid},#{context},1,#{uid})
+    </insert>
+    <resultMap id="ContextSelect" type="ShopContext">
+        <id column="id" property="id"></id>
+        <association property="us" javaType="UserInformation"></association>
+    </resultMap>
+    <select id="selectContext" resultMap="ContextSelect">
+        SELECT * FROM `shopcontext` s
+      INNER JOIN `userinformation` u
+       ON s.uid=u.id
+        WHERE s.sid= #{id}
+        ORDER BY s.modified DESC
+                 LIMIT 0,5
+    </select>
+</mapper>

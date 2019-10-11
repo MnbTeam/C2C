@@ -7,9 +7,46 @@
     <link href="/css/home_page/header_and_nav.css" rel="stylesheet"/>
     <link href="/css/product/product_info.css" rel="stylesheet"/>
     <script src="/js/jquery-1.12.4.js"></script>
-    <script src="/js/home/header_model_js.js"></script>
-    <script src="/js/publish/product_info.js"></script>
+ <!--   <script src="/js/home/header_model_js.js"></script>
+    <script src="/js/publish/product_info.js"></script>-->
 </head>
+<script type="text/javascript">
+    $(function () {
+        $('.send_comment_button').click(function () {
+            var context=$('.comment_textarea').val();
+            var uid=$('.uid').val();
+            var sid=$('.sid').val();
+            var username=$('.username').val();
+            if (username == '') {
+                alert('请先登录！！！');
+                return;
+            }
+            if(context=='')
+            {
+                alert('评论不能为空！！！');
+                return;
+            }
+            $.post("PlayContext",{uid:uid,context:context,sid:sid},function (result) {
+                if (result == 2){
+                    alert('请先登录！！！');
+                } else if (result == 0){
+                    alert("发表留言失败，请先检查格式");
+                } else if (result == 1){
+                    alert("发表成功");
+                    window.location.href="../details?id="+sid;
+            }})
+
+
+                /*var name = data.username;
+                var time = data.time;
+                var context = data.context;
+                var cc = "<div class='one_comment'><span class='username'>用户："+name+"</span><span class='time'>发表于："+time+"</span><p class='content'>"+context+"</p></div>";
+                $comment.append(cc);*/
+
+
+        });
+    });
+</script>
 <body>
 <header th:include="header.html :: copy"></header>
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
@@ -23,31 +60,34 @@
         <div class="product_info_div">
             <span class="what_info">商品名：</span>
             <input type="hidden" class="id"/>
-            <span class="info_content" >苹果6s</span><br/>
+            <span class="info_content" th:text="${selectdetails.name}">苹果6s</span><br/>
             <span class="what_info">成色：</span>
-            <span class="info_content">7成</span><br/>
+            <span class="info_content" th:text="${selectdetails.level}">7成</span><br/>
             <span class="what_info">数量：</span>
-            <span class="info_content" >3</span><br/>
+            <span class="info_content" th:text="${selectdetails.count}" >3</span><br/>
             <span class="what_info">单价：</span>
-            <span class="info_content" >20.00</span><br/>
+            <span class="info_content" th:text="${selectdetails.price}">20.00</span><br/>
             <span class="what_info">详情：</span>
-            <span class="info_content" >这是一个商品，联系电话1111111111</span><br/>
+            <span class="info_content" >这是一个商品，联系电话:<span th:text="${Users.phone}" style="font-weight: bold;font-size: 25px">1111111111</span></span><br/>
             <span class="what_info">分类：</span>
             <span class="info_content" >数码科技-手机-苹果</span><br/>
             <button class="buy_button" >加入购物车</button>
         </div>
         <div class="publish_comment">
             <span>留言：</span><br/><br/>
-            <input type="hidden"  class="token"/>
+            <input type="hidden" class="sid" th:value="${selectdetails.id}">
+            <input type="hidden" class="uid" th:value="${Users.id}">
+            <input type="hidden" class="username" th:value="${Users.username}">
             <textarea class="comment_textarea" maxlength="122" placeholder="本次最多填写122个字" name="comment"></textarea>
             <button class="send_comment_button">发表</button>
         </div>
         <div class="comment_content">
-            <div class="one_comment">
-                <span class="username" >用户：1211110</span>
+            <div class="one_comment" th:each="v:${SelectContext}">
+                <span class="username" th:text="'用户:'+${v.us.username}">用户：1211110</span>
                 <span class="time"
-                      >发表于：2016-03-01 22:22:22</span>
-                <p class="content" >123456789123</p>
+                      th:with="time = ${v.modified}"
+                      th:text="'发表于 '+${#dates.format(time,'yyyy-MM-dd HH:mm:ss')}">发表于：2016-03-01 22:22:22</span>
+                <p class="content" th:text="${v.context}">123456789123</p>
             </div>
         </div>
     </div>
