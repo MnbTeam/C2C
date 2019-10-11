@@ -9,9 +9,10 @@
     <span class="user_icon"></span>
     <span class="login_or_register_string">
         <!--判断是否有登陆，两者相互替换-->
-        <a href="/page/login_page.html" id="user_name_b" >登录</a>
-        <a href="/page/login_page.html" >注册</a>
-        <a href="/page/personal/personal_info.html" class="user_name_a" id="user_name_a"></a>
+        <a href="/page/login_page.html" th:if="${session.userInformation.username}==null" id="user_name_a" >登录</a>
+        <a href="/page/login_page.html"  th:if="${session.userInformation.username}==null">注册</a>
+        <a href="/page/personal_info.do" class="user_name_a"
+           th:if="${session.userInformation.username!=null}" th:text="${session.userInformation.username}" th:value="${session.userInformation.phone}" id="user_name_a"></a>
     </span>
 </header>
 </html>
