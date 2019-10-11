@@ -1,5 +1,6 @@
 package com.dg.controller;
 
+import com.dg.pojo.ShopInformation;
 import com.dg.pojo.Userinformation;
 import com.dg.service.ShopInformationService;
 import org.apache.catalina.User;
@@ -37,9 +38,9 @@ public class text {
     }
     //发布商品
     @RequestMapping("/page/publish_product.html")
-    public void show5(HttpSession session){
+    public void show5(HttpSession session,Model mod){
         UserShow(session);
-
+        mod.addAttribute("shopInformation",new ShopInformation());
     }
     //重复代码（获取用户）
     private void UserShow(HttpSession session){
