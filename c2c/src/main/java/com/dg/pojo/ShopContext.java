@@ -15,15 +15,15 @@ public class ShopContext implements Serializable {
     private Integer display;
     private int uid;
 
-    public UserInformation getUs() {
+    public Userinformation getUs() {
         return us;
     }
 
-    public void setUs(UserInformation us) {
+    public void setUs(Userinformation us) {
         this.us = us;
     }
 
-    private UserInformation us;
+    private Userinformation us;
 
     /*private String username;
     public String  getUsername() {

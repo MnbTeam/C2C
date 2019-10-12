@@ -10,8 +10,16 @@
   <select id="selectNewOne" resultType="ShopInformation">
     SELECT * FROM shopinformation ORDER BY modified DESC LIMIT 0,1
   </select>
-  <select id="selectdetails" resultType="ShopInformation">
-    SELECT * FROM `shopinformation` WHERE id=#{id}
+  <resultMap id="Shop" type="ShopInformation">
+    <id column="id" property="id"></id>
+    <association property="us" javaType="Userinformation">
+    </association>
+  </resultMap>
+  <select id="selectdetails" resultMap="Shop">
+    SELECT * FROM `shopinformation` s
+    INNER JOIN `userinformation` u
+  on s.uid=u.id
+  where s.id=#{id}
   </select>
   <select id="selectLike" resultType="ShopInformation">
     SELECT * FROM `shopinformation`

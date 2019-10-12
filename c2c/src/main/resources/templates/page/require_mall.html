@@ -9,7 +9,14 @@
     <script src="/js/mall/left_nav_on_goods_page.js"></script>
     <link rel="icon" href="/img/page_icon.png"/>
     <link href="/css/home_page/header_and_nav.css" rel="stylesheet"/>
-    <script>
+    <script type="text/javascript">
+        $(function () {
+            $('.nb').click(function () {
+                var id=$('.nb').attr("value");
+                window.location.href='SelectPlase?id='+id;
+            })
+        })
+
     </script>
 
 </head>
@@ -259,16 +266,14 @@
         </div>
     </div>
     <div class="pagination_div" onmouseleave="hideParticular()">
-        <a class="pagination_lt">&lt;</a>
+        <a class="pagination_lt" th:href="@{../SelectPlase(i=${SelectPlase.getPageNum()-1})}" th:if="${SelectPlase.getPageNum()!=1}">&lt;</a>
         <ul>
-            <!--new-->
-            <li class="current_page"><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li><a>4</a></li>
-            <li><a>5</a></li>
+            <li th:each="li:${list}" STYLE="background-color: slateblue">
+                <a class="nb" th:text="${li}" th:if="${SelectPlase.getPageNum() != li}"  th:value="${li}" style="color: white" >1</a>
+                <a th:text="${li}" th:if="${SelectPlase.getPageNum() eq li}"  style="font-size: 30px;font-weight: bold;color: black"></a>
+            </li>
         </ul>
-        <a class="pagination_gt">&gt;</a>
+        <a class="pagination_gt" th:href="@{../SelectPlase(i=${SelectPlase.getPageNum()+1})}" th:if="${SelectPlase.getPageNum()!=SelectPlase.getPages()}">&gt;</a>
     </div>
     <footer>
         <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>

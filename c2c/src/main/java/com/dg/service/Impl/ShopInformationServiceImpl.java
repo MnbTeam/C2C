@@ -36,14 +36,14 @@ public class ShopInformationServiceImpl implements ShopInformationService {
     @Override
     public Page<ShopInformation> selectLike(String name,int i) {
 
-        PageHelper.startPage(i,12);
+        PageHelper.startPage(i,9);
         Page<ShopInformation> page= ( Page<ShopInformation>)shop.selectLike(name);
         return page;
     }
 
     @Override
     public Page<ShopInformation> selectAll(int i) {
-        PageHelper.startPage(i,12);
+        PageHelper.startPage(i,9);
         Page<ShopInformation> page= ( Page<ShopInformation>)shop.selectAll();
         return page;
     }

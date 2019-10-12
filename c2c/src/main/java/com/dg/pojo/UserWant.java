@@ -23,15 +23,15 @@ public class UserWant implements Serializable {
 
     private String remark;
 
-    public UserInformation getUs() {
+    public Userinformation getUs() {
         return us;
     }
 
-    public void setUs(UserInformation us) {
+    public void setUs(Userinformation us) {
         this.us = us;
     }
 
-    private UserInformation us;
+    private Userinformation us;
     public Integer getId() {
         return id;
     }

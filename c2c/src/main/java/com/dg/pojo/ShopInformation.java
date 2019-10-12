@@ -33,6 +33,16 @@ public class ShopInformation implements Serializable {
 
     private String thumbnails;
     private int count;
+
+    public Userinformation getUs() {
+        return us;
+    }
+
+    public void setUs(Userinformation us) {
+        this.us = us;
+    }
+
+    private Userinformation us;
     public Integer getCount() {
         return count;
     }
