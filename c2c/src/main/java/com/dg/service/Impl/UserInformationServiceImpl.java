@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class UserInformationServiceImpl  implements UserInformationService {
-    @Autowired
+    @Resource
     private UserInformationMapper user;
 
     @Override
@@ -50,5 +50,10 @@ public class UserInformationServiceImpl  implements UserInformationService {
     @Override
     public int updateUser(Userinformation ufi) {
         return udao.updateUser(ufi);
+    }
+
+    @Override
+    public Userinformation selectByid(Integer id) {
+        return udao.selectByid(id);
     }
 }

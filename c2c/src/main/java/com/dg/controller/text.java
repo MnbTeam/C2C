@@ -1,8 +1,7 @@
 package com.dg.controller;
 
-import com.dg.pojo.ShopContext;
-import com.dg.pojo.ShopInformation;
-import com.dg.pojo.Userinformation;
+import com.dg.pojo.*;
+import com.dg.service.Impl.AllKindsServiceImpl;
 import com.dg.service.ShopInformationService;
 import com.dg.service.UserInformationService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -23,6 +22,8 @@ public class text {
     private ShopInformationService shops;
     @Autowired
     private UserInformationService us;
+    @Autowired
+    private AllKindsServiceImpl asi;
     @ RequestMapping("index.html")
     public void show1(HttpSession session,Model mod){
         UserShow(session);
@@ -47,7 +48,22 @@ public class text {
     @RequestMapping("/page/publish_product.html")
     public void show5(HttpSession session,Model mod){
         UserShow(session);
+        List<AllKinds> listKind=asi.selectFrist();
+        mod.addAttribute("listKind",listKind);
         mod.addAttribute("shopInformation",new ShopInformation());
+    }
+    //发布求购商品
+    @RequestMapping("/page/require_product.html")
+    public void show6(HttpSession session,Model mod){
+        List<AllKinds> listKind=asi.selectFrist();
+        mod.addAttribute("listKind",listKind);
+        mod.addAttribute("SelectUidWant",new UserWant());
+        UserShow(session);
+    }
+    //购物车
+    @RequestMapping("/page/shopping_cart.html")
+    public void show7(HttpSession session){
+        UserShow(session);
     }
     //重复代码（获取用户）
     private void UserShow(HttpSession session){

@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///c2c?serverTimezone=UTC
     username: root
-    password: 123456
+    password: root
   thymeleaf:
     encoding: UTF-8
     cache: false

@@ -116,14 +116,14 @@ $(function () {
             url:'/insertGoodsCar.do',
             dataType:'JSON',
             type:'post',
-            data:{id:id},
+            data:{sid:id},
             success:function (data) {
-                var result = data.result;
-                if (result == '2'){
+                var result = data;
+                if (result == 2){
                     alert('您还未登录，请先登录！！！');
-                } else if (result == '1'){
+                } else if (result == 1){
                     alert('加入购物车成功');
-                } else if (result == '0'){
+                } else if (result == 0){
                     alert('加入购物车失败');
                 } else {
                     alert('发生了错误，请检测网络');

@@ -23,6 +23,8 @@ public class UserWant implements Serializable {
 
     private String remark;
 
+    private Userinformation us;
+
     public Userinformation getUs() {
         return us;
     }
@@ -31,7 +33,6 @@ public class UserWant implements Serializable {
         this.us = us;
     }
 
-    private Userinformation us;
     public Integer getId() {
         return id;
     }

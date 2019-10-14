@@ -40,4 +40,8 @@
     DELETE FROM `shopinformation`
     WHERE id=#{id}
   </delete>
+  <!--发布-->
+  <insert id="insertShopping" keyColumn="id" keyProperty="id" parameterType="ShopInformation">
+    INSERT INTO `shopinformation` VALUES(0,NOW(),#{name},#{level},#{remark},#{price},#{sort},1,#{quantity},1,0,#{uid},#{image},#{thumbnails})
+  </insert>
 </mapper>

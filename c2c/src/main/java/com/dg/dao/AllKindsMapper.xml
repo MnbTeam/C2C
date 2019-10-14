@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dg.dao.AllKindsMapper">
+    <resultMap id="BaseResultMap1" type="com.dg.pojo.AllKinds">
+        <id property="id" column="id"/>
+        <result column="name" property="name"/>
+        <result column="modified" property="modified"/>
+        <collection property="cf" ofType="Classification">
+            <id column="cid" property="cid"/>
+            <result column="cname" property="cname"/>
+            <result column="cmodified" property="cmodified"/>
+            <result column="aid" property="aid"/>
+            <collection property="sf" ofType="Specific">
+                <id column="sid" property="sid"/>
+                <result column="sname" property="sname"/>
+                <result column="smodified" property="smodified"/>
+                <result column="cid" property="cid"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <sql id="liName">
+        ak.*,
+        cf.id cid,
+        cf.name cname,
+        cf.modified cmodified,
+        cf.aid,
+        sk.id sid,
+        sk.name sname,
+        sk.modified smodified,
+        sk.cid
+    </sql>
+    <select id="selectFrist" resultMap="BaseResultMap1">
+        SELECT <include refid="liName"/> FROM allkinds ak
+        inner JOIN classification cf
+        ON ak.id=cf.aid
+        INNER JOIN specifickinds sk
+        ON cf.id=sk.cid
+    </select>
+
+</mapper>

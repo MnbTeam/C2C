@@ -6,6 +6,7 @@ $(function () {
 //            $('.table_content:last').after("<tr class='table_content'><td><span>11111</span></td></tr>");
     calSum();
     var which = 0;
+    //添加地址
     $('.shipping_address').click(function () {
         var id = $(this).attr('id');
         $('.shipping_address').each(function () {

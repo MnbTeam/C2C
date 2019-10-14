@@ -71,12 +71,12 @@ public class UserInfoWeb {
         ufi.setUsername((String)map.get("userName"));
         ufi.setRealname((String)map.get("realName"));
         ufi.setGender((String)map.get("gender"));
-        ufi.setSno((Integer) map.get("sno"));
+        ufi.setSno((String) map.get("sno"));
         ufi.setDormitory((String)map.get("dormitory"));
-        System.out.println(ufi.getUsername()+"\t"+ufi.getRealname()+"\t"+ufi.getGender());
-        System.out.println(ufi.getId()+"\t"+ufi.getSno()+"\t"+ufi.getDormitory());
-        //return 1;
-        return usi.updateUser(ufi);
+        int results=usi.updateUser(ufi);
+        ufi=usi.selectByid(ufi.getId());
+        session.setAttribute("userInformation",ufi);
+        return results;
     }
     //查询用户商品信息
     @RequestMapping("selectUidAll")

@@ -15,5 +15,6 @@ public interface UserInformationService {
     int insertUser(Userinformation ufi, String password);
     Userinformation selectOnly(String phone,String password);
     int updateUser(Userinformation ufi);
+    Userinformation selectByid(Integer id);
 }
 

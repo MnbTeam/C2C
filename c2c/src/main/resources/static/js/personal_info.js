@@ -5,9 +5,9 @@ $( function() {
         var type = $(this).siblings(".first_info").children("input").attr("type");
         var which_update = $(this).siblings(".first_info").children("input").attr("class");
         var my_this = $(this);
-        if (type=="radio") {
+        if (type=="radio0") {
 //                    单选按钮
-            var value = $(this).siblings(".first_info").children("input").val();
+            var value =$('input:radio:checked').val();// $(this).siblings(".first_info").children("input").val();
 
             alert(value);
         }else {
@@ -17,8 +17,11 @@ $( function() {
             }else{
 //                        修改，修改类名或id，直接获取类名就可以
                 var value =$(this).siblings(".first_info").children("input").val();
+                if (type=="radio") {
+//                    单选按钮
+                    value =$('input:radio:checked').val();
+                }
                 var map =   '{"'+which_update+'":"' + value + '"}';
-                alert(map);
                 $.ajax({
                     url:'certification.do',
                     type:'post',
@@ -54,7 +57,7 @@ $( function() {
 } );
 $(function () {
     if ($('.show_tip').is(':hidden')){
-       // var show_tip = $('.show_tip').val();
+        // var show_tip = $('.show_tip').val();
         alert('请先认证真实信息！！！！！');
     }
 });

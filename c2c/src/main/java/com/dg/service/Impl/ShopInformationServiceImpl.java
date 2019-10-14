@@ -8,10 +8,11 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 @Service
 public class ShopInformationServiceImpl implements ShopInformationService {
-  @Autowired
+  @Resource
    private ShopInformationMapper shop;
     @Override
     public List<ShopInformation> selectTop() {
@@ -63,5 +64,9 @@ public class ShopInformationServiceImpl implements ShopInformationService {
     @Override
     public int Product(int id) {
         return shop.Product(id);
+    }
+    @Override
+    public int insertShopping(ShopInformation shi) {
+        return shop.insertShopping(shi);
     }
 }

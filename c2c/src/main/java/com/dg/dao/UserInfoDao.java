@@ -13,4 +13,6 @@ public interface UserInfoDao {
     Userinformation selectOnly(String phone,String password);
     //完善用户基本信息
     int updateUser(Userinformation ufi);
+    //根据id查询用户
+    Userinformation selectByid(Integer id);
 }

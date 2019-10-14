@@ -15,4 +15,5 @@ public interface ShopInformationService {
     Page<ShopInformation> selectUid(int i,int id);
     ShopInformation SelectSid(int id);
     int Product(int id);
+    int insertShopping(ShopInformation shi);
 }

@@ -23,4 +23,6 @@ List<ShopInformation> selectUid(int id);
 ShopInformation SelectSid(int id);
 //用户删除商品
 int Product(int id);
+    //发布
+    int insertShopping(ShopInformation shi);
 }

@@ -11,6 +11,9 @@
     <script src="/js/mall/type_list_obj.js"></script>
     <script src="/js/publish/publish_product.js"></script>
 </head>
+<script th:inline="javascript">
+    var typeList=[[${listKind}]];
+</script>
 <body>
 <header th:include="header.html :: copy"></header>
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
@@ -19,7 +22,7 @@
 <!--name,sort,quantity,price,remark,token,-->
 <div class="top_content">
     <div class="publish_product_div">
-        <form action="/publishUserWant.do" method="post">
+        <form action="publishUserWant.do" method="post">
             <input type="hidden"  name="token"/>
             <div class="publish_one_par">
                 <div class="publish_title">
@@ -59,13 +62,8 @@
                     <h3>分类</h3>
                 </div>
                 <div class="publish_content">
-                    <select class="choose_first_type">
-                        <option id="type_1" selected="selected">数码科技</option>
-                        <option id="type_2">影音家电</option>
-                        <option id="type_3">鞋服配饰</option>
-                        <option id="type_4">运动代步</option>
-                        <option id="type_5">书籍文具</option>
-                        <option id="type_6">其他</option>
+                    <select class="choose_first_type"  >
+                        <option th:each="ki,kiStat:${listKind}" th:selected="${ki.id == 1}" th:id="${ki.id}" th:text="${ki.name}">数码科技</option>
                     </select><span class="to_left">--</span>
                     <select class="choose_second_type">
                         <option>三成</option>

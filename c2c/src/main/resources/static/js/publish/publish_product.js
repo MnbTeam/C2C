@@ -2,7 +2,6 @@
  * Created by alone on 2017/5/16.
  */
 $(function () {
-    var typeList = getTypeList();
     var curFirst = 0;
     var curSecond = 0;
     updateSecondSelect();
@@ -39,28 +38,10 @@ $(function () {
         }
         return url ;
     }
+
     $('.choose_first_type').change(function () {
         var getSelect = $(this).children('option:selected').attr("id");
-        switch (getSelect) {
-            case "type_1":
-                curFirst = 0;
-                break;
-            case "type_2":
-                curFirst = 1;
-                break;
-            case "type_3":
-                curFirst = 2;
-                break;
-            case "type_4":
-                curFirst = 3;
-                break;
-            case "type_5":
-                curFirst = 4;
-                break;
-            case "type_6":
-                curFirst = 5;
-                break;
-        }
+        curFirst=getSelect-1;
         curSecond = 0;
         updateSecondSelect();
     });
@@ -70,40 +51,40 @@ $(function () {
         updateThirdSelect();
     });
     function updateThirdSelect() {
-        var temp = typeList[curFirst];
+        var temp = typeList[curFirst].cf;
         var thirdText = "";
-        var which = temp[curSecond];
-        var res = which.content;
+        var which = temp[curSecond].sf;
+        var res = which;
         for(j = 0;j<res.length;j++) {
             var rel_type = res[j];
             if(j==0) {
-                thirdText+="<option id = '"+rel_type.id+
-                    "' value="+rel_type.id+" selected='selected'>"+rel_type.name+"</option>";
+                thirdText+="<option id = '"+rel_type.sid+
+                    "' value="+rel_type.sid+" selected='selected'>"+rel_type.sname+"</option>";
             }else{
-                thirdText+="<option id = '"+rel_type.id+
-                    "' value="+rel_type.id+">"+rel_type.name+"</option>";
+                thirdText+="<option id = '"+rel_type.sid+
+                    "' value="+rel_type.sid+">"+rel_type.sname+"</option>";
             }
         }
         $('.choose_third_type').html(thirdText);
     }
     function updateSecondSelect() {
-        var temp = typeList[curFirst];
+        var temp = typeList[curFirst].cf;
         var secondText = "";
         var thirdText = "";
         for(i = 0;i<temp.length;i++) {
             var which = temp[i];
-            secondText += "<option id = '"+(10000+i)+"'>"+which.name+"</option>";
+            secondText += "<option id = '"+(10000+i)+"'>"+which.cname+"</option>";
             if(i==curSecond) {
-                var res = which.content;
+                var res = which.sf;
                 for(j = 0;j<res.length;j++) {
                     var rel_type = res[j];
                     if(j==0) {
-                        thirdText+="<option id = '"+rel_type.id+
-                            "' value="+rel_type.id+" selected='selected'>"
-                            +rel_type.name+"</option>";
+                        thirdText+="<option id = '"+rel_type.sid+
+                            "' value="+rel_type.sid+" selected='selected'>"
+                            +rel_type.sname+"</option>";
                     }else{
-                        thirdText+="<option id = '"+rel_type.id+"' value="
-                            +rel_type.id+">"+rel_type.name+"</option>";
+                        thirdText+="<option id = '"+rel_type.sid+"' value="
+                            +rel_type.sid+">"+rel_type.sname+"</option>";
                     }
                 }
             }
@@ -114,7 +95,7 @@ $(function () {
 
 });
 $(function () {
-   if (($('.show_tip').is(':hidden'))){
-       alert("请输入正确的格式！！！！");
-   }
+    if (($('.show_tip').is(':hidden'))){
+        alert("请输入正确的格式！！！！");
+    }
 });
