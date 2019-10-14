@@ -17,4 +17,10 @@ ShopInformation selectdetails(int id);
 List<ShopInformation> selectLike(String name);
 //商城查询
 List<ShopInformation> selectAll();
+//当前用户发布的商品查询
+List<ShopInformation> selectUid(int id);
+//修改的商品查询
+ShopInformation SelectSid(int id);
+//用户删除商品
+int Product(int id);
 }

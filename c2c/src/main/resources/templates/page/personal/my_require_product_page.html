@@ -11,14 +11,25 @@
         $(function () {
             $('.update_publish').click(function () {
                 var id = $(this).attr('value');
-                window.location.href='/modified_require_product.do?id='+id;
+                window.location.href='modified_require_product.do?id='+id;
             });
             $('.delete_publish').click(function () {
                 var r = confirm("确定删除？？？？")
+                var ss=$(this);
                 if (r == true) {
                     var id = $(this).attr('value');
 //                    alert(id);
-                    window.location.href="/deleteUserWant.do?id="+id;
+
+                    $.post("deleteWant.do?id="+id,function(data){
+                        if(data==1)
+                        {
+                            ss.closest(".delete_and_update").closest(".require_one_part").remove();
+                            alert("成功下架");
+                        }else
+                        {
+                            alert("删除失败")
+                        }
+                    })
                 }
             });
         });
@@ -152,32 +163,31 @@
 <div th:include="personal_nav.html :: personal_nav" class="personal_nav"></div>
 <div class="temp_content">
     <div class="require_content_div">
-        <div class="require_one_part" id="1" >
+        <div class="require_one_part" id="1" th:each="v:${Require}">
             <span class="what_info">商品名：</span>
-            <span class="info_content" >苹果6s</span><br/>
+            <span class="info_content" th:text="${v.name}">苹果6s</span><br/>
             <span class="what_info">数量：</span>
-            <span class="info_content" >3</span><br/>
+            <span class="info_content" th:text="${v.quantity}">3</span><br/>
             <span class="what_info">单价：</span>
-            <span class="info_content" >20.00</span><br/>
+            <span class="info_content" th:text="${v.price}">20.00</span><br/>
             <span class="what_info">详情：</span>
-            <span class="info_content" >这是一个商品，联系电话1111111111</span><br/>
+            <span class="info_content" th:text="${v.remark}">这是一个商品，联系电话1111111111</span><br/><span th:text="'联系电话:'+${v.us.phone}" style="color: blue">sss</span><br/>
             <span class="what_info">分类：</span>
             <span class="info_content" >数码科技-手机-苹果</span><br/>
             <div class="delete_and_update">
-                <img src="/img/pencil.jpg" class="update_publish" />
-                <img src="/img/delete_icon.jpg" class="delete_publish" /></div>
+                <img src="/img/pencil.jpg" th:value="${v.id}" class="update_publish" />
+                <img src="/img/delete_icon.jpg" th:value="${v.id}" class="delete_publish" /></div>
         </div>
     </div>
     <div class="pagination_div">
-        <a class="pagination_lt">&lt;</a>
+        <a class="pagination_lt" th:href="@{../Require(i=${Require.getPageNum()-1})}" th:if="${Require.getPageNum()!=1}">&lt;</a>
         <ul>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>4</a></li>
-            <li><a>3</a></li>
-            <li><a>5</a></li>
+            <li th:each="li:${list}" STYLE="background-color: slateblue">
+                <a class="nb" th:text="${li}" th:if="${Require.getPageNum() != li}"  th:value="${li}" style="color: white" >1</a>
+                <a th:text="${li}" th:if="${Require.getPageNum() eq li}"  style="font-size: 30px;font-weight: bold;color: black"></a>
+            </li>
         </ul>
-        <a class="pagination_gt">&gt;</a>
+        <a class="pagination_gt" th:href="@{../Require(i=${Require.getPageNum()+1})}" th:if="${Require.getPageNum()!=Require.getPages()}">&gt;</a>
     </div>
     <footer>
         <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>

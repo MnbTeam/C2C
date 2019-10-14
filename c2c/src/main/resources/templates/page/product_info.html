@@ -54,7 +54,7 @@
 <div class="top_content">
     <div class="publish_product_div">
         <div class="product_img_div">
-            <img src="/img/home/p4.jpeg" class="product_img" />
+            <img th:src="${selectdetails.image}" class="product_img" />
         </div>
         <div class="product_info_div">
             <span class="what_info">商品名：</span>
@@ -67,10 +67,10 @@
             <span class="what_info">单价：</span>
             <span class="info_content" th:text="${selectdetails.price}">20.00</span><br/>
             <span class="what_info">详情：</span>
-            <span class="info_content" th:text="${selectdetails.remark}">这是一个商品，联系电话:</span><span th:text="${selectdetails.us.phone}" style="font-weight: bold;font-size: 25px">1111111111</span><br/>
+            <span class="info_content" th:text="${selectdetails.remark}">这是一个商品，</span><br/>联系电话:<span th:text="${selectdetails.us.phone}" style="font-weight: bold;font-size: 25px">1111111111</span><br/>
             <span class="what_info">分类：</span>
             <span class="info_content" >数码科技-手机-苹果</span><br/>
-            <button class="buy_button" >加入购物车</button>
+            <button class="buy_button" th:value="${selectdetails.id}">加入购物车</button>
         </div>
         <div class="publish_comment">
             <span>留言：</span><br/><br/>
@@ -81,6 +81,7 @@
             <button class="send_comment_button">发表</button>
         </div>
         <div class="comment_content">
+            <span th:if="${SelectContext.size()<1}" style="font-size: 26px;font-weight: bold">该商品暂无评论，快来抢占一楼吧!</span>
             <div class="one_comment" th:each="v:${SelectContext}">
                 <span class="username" th:text="'用户:'+${v.us.username}">用户：1211110</span>
                 <span class="time"

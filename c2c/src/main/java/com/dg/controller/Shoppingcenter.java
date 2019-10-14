@@ -26,4 +26,10 @@ public class Shoppingcenter {
         mo.addAttribute("list",li);
         return "page/mall_page.html";
     }
+    @RequestMapping("modifiedMyPublishProduct.do")
+    public String modifiedMyPublishProduct(Model mo,int id)
+    {
+        mo.addAttribute("shopInformation",sh.SelectSid(id));
+        return "page/publish_product.html";
+    }
 }

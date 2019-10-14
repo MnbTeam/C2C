@@ -28,4 +28,16 @@
   <select id="selectAll" resultType="ShopInformation">
     SELECT * FROM `shopinformation`
   </select>
+  <select id="selectUid" resultType="ShopInformation">
+    SELECT * FROM `shopinformation`
+    WHERE uid=#{id}
+  </select>
+  <select id="SelectSid" resultType="ShopInformation">
+    SELECT * FROM `shopinformation`
+    WHERE id=#{id}
+  </select>
+  <delete id="Product">
+    DELETE FROM `shopinformation`
+    WHERE id=#{id}
+  </delete>
 </mapper>

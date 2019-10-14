@@ -19,4 +19,21 @@ public class ShopPlaseServiceImpl implements PlaseShopService {
       Page<UserWant> page= (Page<UserWant>) pl.SelectPlase();
       return page;
     }
+
+  @Override
+  public Page<UserWant> SelectUid(int id,int i) {
+    PageHelper.startPage(i,9);
+    Page<UserWant> page= (Page<UserWant>)pl.SelectUid(id);
+    return page;
+  }
+
+  @Override
+  public int deletePlase(int id) {
+    return pl.deletePlase(id);
+  }
+
+    @Override
+    public UserWant SelectUidWant(int id) {
+        return pl.SelectUidWant(id);
+    }
 }

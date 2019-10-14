@@ -4,19 +4,26 @@ package com.dg.controller;
 import com.alibaba.fastjson.JSON;
 import com.dg.pojo.Userinformation;
 import com.dg.service.Impl.UserInformationServiceImpl;
+import com.dg.service.PlaseShopService;
+import com.dg.service.ShopInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class UserInfoWeb {
     @Autowired
     private UserInformationServiceImpl usi;
-
+    @Autowired
+    private ShopInformationService shops;
+    @Autowired
+    private PlaseShopService pl;
     /**
      * 用户注册
      */
@@ -71,5 +78,45 @@ public class UserInfoWeb {
         //return 1;
         return usi.updateUser(ufi);
     }
+    //查询用户商品信息
+    @RequestMapping("selectUidAll")
+    public String selectUidAll(Model mo,@RequestParam(value="i",defaultValue="1",required=true) int i,HttpSession session)
+    {
+        Userinformation ufi=(Userinformation) session.getAttribute("userInformation");
+        List<Integer> li=new ArrayList<>();
+        int id=ufi.getId();
+        mo.addAttribute("SelectUid",shops.selectUid(i,id));
+        for (int k=1;k<=shops.selectUid(i,id).getPages();k++) {
+            li.add(k);
+        }
+        mo.addAttribute("list",li);
+        return "page/personal/my_publish_product_page.html";
+    }
+//删除用户商品
+    @ResponseBody
+    @RequestMapping("deleteShop.do")
+    public int deleteShop(Integer id,Model mo)
+    {
+        if(shops.Product(id)>0)
+        {
+            return 1;
+        }else
+            {
+                return 0;
+            }
+    }
+   //删除用户求购
+    @ResponseBody
+    @RequestMapping("deleteWant.do")
+    public int deleteWant(int id)
+    {
+        if(pl.deletePlase(id)>0)
+        {
+            return 1;
+        }else
+        {
+            return 0;
+        }
 
+    }
 }

@@ -13,19 +13,28 @@
             $('.update_publish').click(function () {
                 var id = $(this).attr('value');
 //                alert(id);
-                window.location.href = '/modifiedMyPublishProduct.do?id=' + id;
+                window.location.href = 'modifiedMyPublishProduct.do?id=' + id;
             });
             $('.delete_publish').click(function () {
                 var r = confirm("确定删除？？？？")
+                var ss=$(this);
                 if (r == true) {
                     var id = $(this).attr('value');
-//                    alert(id);
-                    window.location.href="/deleteShop.do?id="+id;
+                    $.post("deleteShop.do?id="+id,function(data){
+                        if(data==1)
+                        {
+                            ss.closest(".delete_and_update").closest(".detail_product").remove();
+                            //window.location="selectUidAll?i=1";
+                        }else
+                            {
+                                alert("删除失败")
+                            }
+                    })
                 }
             });
             $('.detail_product_name').click(function () {
                 var id = $(this).attr('value');
-                window.location.href='/selectById.do?id='+id;
+                window.location.href='../selectById.do?id='+id;
             });
         });
 
@@ -65,28 +74,27 @@
 <div class="temp_content">
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="product_content_div">
-        <figure class="detail_product" >
+        <figure class="detail_product" th:each="s:${SelectUid}">
             <div class="product_img_div">
-                <img src="/img/home/feature_prodects/cont2.jpg"  class="show_img"/>
+                <img th:src="${s.image}"  class="show_img"/>
             </div>
             <p class="show_tip" ></p>
-            <span class="detail_product_name"  >Big block Lether Bag</span><br/>
-            <span class="detail_product_cost" >$350.00</span><br/>
+            <span class="detail_product_name"  th:text="${s.name}" th:value="${s.id}">Big block Lether Bag</span><br/>
+            <span class="detail_product_cost" th:text="${s.price}">$350.00</span><br/>
             <span class="detail_type" >数码科技-手机-苹果</span>
-            <div class="delete_and_update"><img src="/img/pencil.jpg" class="update_publish" />
-                <img src="/img/delete_icon.jpg" class="delete_publish" /></div>
+            <div class="delete_and_update"><img src="/img/pencil.jpg" th:value="${s.id}" class="update_publish" />
+                <img src="/img/delete_icon.jpg" th:value="${s.id}" class="delete_publish" /></div>
         </figure>
     </div>
     <div class="pagination_div">
-        <a class="pagination_lt">&lt;</a>
+        <a class="pagination_lt" th:href="@{../selectUidAll(i=${SelectUid.getPageNum()-1})}" th:if="${SelectUid.getPageNum()!=1}">&lt;</a>
         <ul>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li><a>4</a></li>
-            <li><a>5</a></li>
+            <li th:each="li:${list}" STYLE="background-color: slateblue">
+                <a class="nb" th:text="${li}" th:if="${SelectUid.getPageNum() != li}"  th:value="${li}" style="color: white" >1</a>
+                <a th:text="${li}" th:if="${SelectUid.getPageNum() eq li}"  style="font-size: 30px;font-weight: bold;color: black"></a>
+            </li>
         </ul>
-        <a class="pagination_gt">&gt;</a>
+        <a class="pagination_gt" th:href="@{../selectUidAll(i=${SelectUid.getPageNum()+1})}" th:if="${SelectUid.getPageNum()!=SelectUid.getPages()}">&gt;</a>
     </div>
     <footer>
         <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>

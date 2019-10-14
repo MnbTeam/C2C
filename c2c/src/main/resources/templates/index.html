@@ -36,7 +36,7 @@
             (注:如厂家在商品介绍中有售后保障的说明,则此商品按照厂家说明执行售后保障服务。) 您可以查询本品牌在各地售后服务中心的联系方式，<a href="http://www.huawei.com/cn/">请点击这儿查询......</a>
         </p>
         <div class="slide_img">
-            <img src="/img/home/58a7b127N54121e80.jpg" style="width: 400px;height: 270px"/>
+            <img th:src="${v.image}" style="width: 400px;height: 270px"/>
         </div>
     </div>
     <div class="my_slide current">
@@ -45,7 +45,7 @@
             即使是非常激烈的游戏过程，借助防冲突功能的保护，键盘仍能记录下输入的指令。
             26 键无冲功能让您能够以任意顺序按下任意数量的按键，以准确实现所需功能。 </p>
         <div class="slide_img">
-            <img src="/img/home/58f834abNfcc1c117.jpg" style="width: 400px;height: 270px"/>
+            <img th:src="${selectNewOne.image}" style="width: 400px;height: 270px"/>
         </div>
     </div>
     <div class="left_border">
@@ -59,13 +59,13 @@
     <h2>精选的商品</h2>
     <figure class="product" th:each="h:${selectTop}">
         <div class="product_img_div">
-            <img src="/img/home/feature_prodects/cont1.jpg" class="show_img" />
+            <img th:src="${h.image}" class="show_img" />
         </div>
         <p class="show_tip" ></p>
         <input class="product_id" type="hidden" />
         <a class="product_name" th:href="@{details(id=${h.id})}"><span th:text="${h.name}">wsk1103</span></a><br/>
         <span class="product_cost" th:text="${h.price}">$350.00</span><br/><br/>
-        <span class="buy product_1" >加入购物车</span>
+        <span class="buy product_1" th:value="${h.id}" >加入购物车</span>
     </figure>
 </div>
 <div class="home_page_info">

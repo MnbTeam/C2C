@@ -12,4 +12,7 @@ public interface ShopInformationService {
     ShopInformation selectdetails(int id);
     Page<ShopInformation> selectLike(String name,int i);
     Page<ShopInformation> selectAll(int i);
+    Page<ShopInformation> selectUid(int i,int id);
+    ShopInformation SelectSid(int id);
+    int Product(int id);
 }

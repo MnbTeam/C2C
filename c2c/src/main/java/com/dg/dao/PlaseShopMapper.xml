@@ -10,4 +10,17 @@
         INNER JOIN `userinformation` u
         ON w.uid=u.id
     </select>
+    <select id="SelectUid" resultMap="ant">
+        SELECT * FROM `userwant` w
+        INNER JOIN `userinformation` u
+        ON w.uid=u.id
+    </select>
+    <delete id="deletePlase">
+        DELETE FROM `userwant`
+        WHERE id=#{id}
+    </delete>
+    <select id="SelectUidWant" resultType="UserWant">
+        SELECT * FROM `userwant`
+        WHERE id =#{id}
+    </select>
 </mapper>

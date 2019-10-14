@@ -47,4 +47,21 @@ public class ShopInformationServiceImpl implements ShopInformationService {
         Page<ShopInformation> page= ( Page<ShopInformation>)shop.selectAll();
         return page;
     }
+
+    @Override
+    public Page<ShopInformation> selectUid(int i,int id) {
+        PageHelper.startPage(i,9);
+        Page<ShopInformation> page= ( Page<ShopInformation>)shop.selectUid(id);
+        return page;
+    }
+
+    @Override
+    public ShopInformation SelectSid(int id) {
+        return shop.SelectSid(id);
+    }
+
+    @Override
+    public int Product(int id) {
+        return shop.Product(id);
+    }
 }

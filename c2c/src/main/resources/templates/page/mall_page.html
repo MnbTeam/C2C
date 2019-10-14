@@ -63,7 +63,7 @@
                 <div class="detail_product" th:each="v:${selectLike}">
                     <input type="hidden"  name="id"/>
                     <div class="product_img_div">
-                        <img src="/img/home/feature_prodects/cont2.jpg"  class="show_img"/>
+                        <img th:src="${v.image}"  class="show_img"/>
                     </div>
                     <p class="show_tip" ></p>
                     <span class="detail_product_name" th:value="${v.id}"  th:text="${v.name}">Big block Lether Bag</span><br/>

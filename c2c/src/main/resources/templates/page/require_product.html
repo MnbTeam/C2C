@@ -26,7 +26,7 @@
                     <h3>商品名</h3>
                 </div>
                 <div class="publish_content">
-                    <input type="text" class="title_input" name="name" required="required"/>
+                    <input type="text" th:value="${SelectUidWant.name}" class="title_input" name="name" required="required"/>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -34,7 +34,7 @@
                     <h3>数量</h3>
                 </div>
                 <div class="publish_content">
-                    <input type="text" class="count_input" name="quantity" required="required"/>
+                    <input type="text" class="count_input" name="quantity" required="required" th:value="${SelectUidWant.quantity}"/>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -42,7 +42,7 @@
                     <h3>单价</h3>
                 </div>
                 <div class="publish_content cost_content">
-                    <input type="text" class="cost_input" name="price" required="required"/><span>  RMB(.00)</span>
+                    <input type="text" th:value="${SelectUidWant.price}"  class="cost_input" name="price" required="required"/><span>  RMB(.00)</span>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -50,7 +50,7 @@
                     <h3>详情</h3>
                 </div>
                 <div class="publish_content">
-                    <textarea class="detail_textarea" maxlength="122"
+                    <textarea th:value="${SelectUidWant.remark}" class="detail_textarea" maxlength="122"
                               placeholder="留下联系方式,方便卖家联系" name="remark" required="required"></textarea>
                 </div>
             </div>
