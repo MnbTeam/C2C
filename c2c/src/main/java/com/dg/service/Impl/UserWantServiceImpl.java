@@ -20,4 +20,9 @@ public class UserWantServiceImpl implements UserWantService {
     public int insertUserWant(UserWant uw) {
         return uwm.insertUserWant(uw);
     }
+
+    @Override
+    public int UpdateUserWant(UserWant uw) {
+        return uwm.UpdateUserWant(uw);
+    }
 }

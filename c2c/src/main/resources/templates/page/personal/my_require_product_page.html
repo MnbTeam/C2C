@@ -156,13 +156,37 @@
         }
     </style>
 </head>
+<script type="text/javascript">
+    $(function () {
+        $('.search_icon').click(function () {
+            var name = $('.nav_search_input').val();
+            window.location.href = 'findUserWantByName.do?name=' + name;
+        });
+    })
+</script>
 <body>
-<header th:include="header.html :: copy"></header>
+<header class="copy" th:fragment="copy">
+    <span class="short_nav"></span>
+    <div class="home_icon">
+        <a href="/" style="text-decoration: none;color: white">C2C</a>
+    </div>
+    <input type="text" placeholder="查询用户求购" name="search" class="nav_search_input"/>
+    <span class="search_icon"></span>
+    <span class="user_icon"></span>
+    <span class="login_or_register_string">
+        <!--判断是否有登陆，两者相互替换-->
+        <a href="/page/login_page.html" th:if="${session.userInformation.username}==null" id="user_name_a" >登录</a>
+        <a href="/page/login_page.html"  th:if="${session.userInformation.username}==null">注册</a>
+        <a href="/page/personal_info.do" class="user_name_a"
+           th:if="${session.userInformation.username!=null}" th:text="${session.userInformation.username}" th:value="${session.userInformation.phone}" id="user_name_a"></a>
+    </span>
+</header>
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="my_nav.html :: my_nav" class="my_nav"></nav>
 <div th:include="personal_nav.html :: personal_nav" class="personal_nav"></div>
 <div class="temp_content">
     <div class="require_content_div">
+        <span th:if="${Require.size() < 1}" style="font-weight: bold" th:text="'没有找到有关于'+${likeName}+'的信息，点击下方按钮返回用户求购'">你还没发布求购，赶紧发布求购得到你想要的商品吧！</span>
         <div class="require_one_part" id="1" th:each="v:${Require}">
             <span class="what_info">商品名：</span>
             <span class="info_content" th:text="${v.name}">苹果6s</span><br/>
@@ -172,8 +196,8 @@
             <span class="info_content" th:text="${v.price}">20.00</span><br/>
             <span class="what_info">详情：</span>
             <span class="info_content" th:text="${v.remark}">这是一个商品，联系电话1111111111</span><br/><span th:text="'联系电话:'+${v.us.phone}" style="color: blue">sss</span><br/>
-            <span class="what_info">分类：</span>
-            <span class="info_content" >数码科技-手机-苹果</span><br/>
+            <span class="what_info"></span>
+            <span class="info_content" ></span><br/>
             <div class="delete_and_update">
                 <img src="/img/pencil.jpg" th:value="${v.id}" class="update_publish" />
                 <img src="/img/delete_icon.jpg" th:value="${v.id}" class="delete_publish" /></div>

@@ -11,6 +11,9 @@
     <script src="/js/mall/type_list_obj.js"></script>
     <script src="/js/publish/publish_product.js"></script>
 </head>
+<script th:inline="javascript">
+    var typeList=[[${listKind}]];
+</script>
 <body>
 <header th:include="header.html :: copy"></header>
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
@@ -19,14 +22,14 @@
 <!--name,sort,quantity,price,remark,token,-->
 <div class="top_content">
     <div class="publish_product_div">
-        <form action="/publishUserWant.do" method="post">
+        <form th:action="@{publishUserWant.do(id=${SelectUidWant.id})}" method="post">
             <input type="hidden"  name="token"/>
             <div class="publish_one_par">
                 <div class="publish_title">
                     <h3>商品名</h3>
                 </div>
                 <div class="publish_content">
-                    <input type="text" class="title_input" name="name" required="required"
+                    <input type="text" class="title_input" name="name" required="required" th:value="${SelectUidWant.name}"
                            />
                 </div>
             </div>
@@ -35,7 +38,7 @@
                     <h3>数量</h3>
                 </div>
                 <div class="publish_content">
-                    <input type="text" class="count_input" name="quantity" required="required"
+                    <input type="text" class="count_input" name="quantity" required="required" th:value="${SelectUidWant.quantity}"
                            />
                 </div>
             </div>
@@ -44,7 +47,7 @@
                     <h3>单价</h3>
                 </div>
                 <div class="publish_content cost_content">
-                    <input type="text" class="cost_input" name="price" required="required"
+                    <input type="text" class="cost_input" name="price" required="required" th:value="${SelectUidWant.price}"
                            />
                     <span>RMB(.00)</span>
                 </div>
@@ -55,7 +58,7 @@
                 </div>
                 <div class="publish_content">
                     <textarea class="detail_textarea" maxlength="122"
-                              placeholder="留下联系方式,方便卖家联系" name="remark" required="required"
+                              placeholder="留下联系方式,方便卖家联系" name="remark" required="required" th:value="${SelectUidWant.remark}"
                              ></textarea>
                 </div>
             </div>
@@ -65,12 +68,7 @@
                 </div>
                 <div class="publish_content">
                     <select class="choose_first_type">
-                        <option id="type_1" selected="selected">数码科技</option>
-                        <option id="type_2">影音家电</option>
-                        <option id="type_3">鞋服配饰</option>
-                        <option id="type_4">运动代步</option>
-                        <option id="type_5">书籍文具</option>
-                        <option id="type_6">其他</option>
+                        <option th:each="ki,kiStat:${listKind}" th:selected="${ki.id == 1}" th:id="${ki.id}" th:text="${ki.name}">数码科技</option>
                     </select><span class="to_left">--</span>
                     <select class="choose_second_type">
                         <option>三成</option>

@@ -141,12 +141,13 @@
                 <div class="img_content">
                     <input class="upload_img_input" type="file" name="imageS" required="required"/>
                 </div>
-                <img src="" class="show_choose_img" id="show_choose_img"/>
+                <img src="" class="show_choose_img" id="show_choose_img" th:if="${shopInformation.image} == null"/>
                 <img src="" class="show_choose_img" th:if="${shopInformation.image}!=null"
                      th:src="${shopInformation.image}"/>
             </div>
             <div class="submit_content_div">
-                <input type="submit" value="提交" class="submit_input"/>
+                <input name="ss" type="submit"  value="发布" class="submit_input" th:if="${shopInformation.image == null}"/>
+                <input  name="ss" type="submit"  value="修改" class="submit_input" th:if="${shopInformation.image != null}"/>
             </div>
         </form>
     </div>

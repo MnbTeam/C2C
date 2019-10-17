@@ -79,6 +79,7 @@ public class text {
    {
        ShopInformation sh=new ShopInformation();
        sh.setId(id);
+       mo.addAttribute("SelectClass",shops.SelectClass(id));
        mo.addAttribute("SelectContext",us.selectContext(sh));
        mo.addAttribute("selectdetails",shops.selectdetails(id));
 return  "page/product_info.html";
@@ -98,20 +99,35 @@ return  "page/product_info.html";
 @RequestMapping("findShopByName.do")
 public String SelectLike(Model mo,@RequestParam(value="i",defaultValue="1",required=true) Integer i,String name)
 {
-    mo.addAttribute("selectLike",shops.selectLike(name,i));
-    mo.addAttribute("likeName",name);
-    List<Integer> li=new ArrayList<>();
+        mo.addAttribute("selectLike", shops.selectLike(name, i));
+        mo.addAttribute("likeName", name);
+
+    List<Integer> li = new ArrayList<>();
     for (int k=1;k<=shops.selectLike(name,i).getPages();k++) {
         li.add(k);
     }
     mo.addAttribute("list",li);
     return  "page/mall_page.html";
 }
+@RequestMapping("findUserShopByName.do")
+public String findUserShopByName(HttpSession session,Model mo,@RequestParam(value="i",defaultValue="1",required=true) Integer i,String name)
+{
+    Userinformation ufi=(Userinformation) session.getAttribute("userInformation");
+mo.addAttribute("SelectUid",shops.selectUserProduct(ufi.getId(),name,i));
+    mo.addAttribute("likeName", name);
+    List<Integer> li = new ArrayList<>();
+    for (int k=1;k<=shops.selectUserProduct(ufi.getId(),name,i).getPages();k++) {
+        li.add(k);
+    }
+    mo.addAttribute("list",li);
+    return "page/personal/my_publish_product_page.html";
+}
 @RequestMapping("selectById.do")
     public String selectById(int id,Model mo)
 {
     ShopInformation sh=new ShopInformation();
     sh.setId(id);
+    mo.addAttribute("SelectClass",shops.SelectClass(id));
     mo.addAttribute("SelectContext",us.selectContext(sh));
     mo.addAttribute("selectdetails",shops.selectdetails(id));
     return  "page/product_info.html";

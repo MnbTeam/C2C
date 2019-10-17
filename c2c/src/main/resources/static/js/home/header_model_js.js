@@ -84,10 +84,6 @@ $(function () {
             $(this).animate({height: '0%'}, 300).hide(0);
         }
     });
-    $('.search_icon').click(function () {
-        var name = $('.nav_search_input').val();
-        window.location.href = '/findShopByName.do?name=' + name;
-    });
 });
 jQuery(document).ready(function ($) {
     // if (window.history && window.history.pushState) {

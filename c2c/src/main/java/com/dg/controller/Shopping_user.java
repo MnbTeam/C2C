@@ -18,18 +18,27 @@ public class Shopping_user {
     private ShopInformationServiceImpl shi;
 
     /**
-     * 发布商品
+     * 发布和修改商品
      */
     @RequestMapping("page/insertGoods.do")
-    public String insertGoods(ShopInformation sinfo, MultipartFile imageS, HttpSession session){
-        System.out.println(sinfo.getName()+"\t"+sinfo.getLevel()+"\t"+sinfo.getRemark());
-        System.out.println(sinfo.getPrice()+"\t"+sinfo.getSort());
-        Userinformation ufi=(Userinformation)session.getAttribute("userInformation");
-        String fileName=QiNiutool.upload(imageS);
-        sinfo.setImage(" http://pz7e7rpto.bkt.clouddn.com/"+fileName);
-        sinfo.setUid(ufi.getId());
-        int results=shi.insertShopping(sinfo);
-        return "forward:/index.html?fb="+results;
+    public String insertGoods(ShopInformation sinfo, MultipartFile imageS, HttpSession session,String ss) {
+        if (ss.equals("发布")) {
+            Userinformation ufi = (Userinformation) session.getAttribute("userInformation");
+            String fileName = QiNiutool.upload(imageS);
+            sinfo.setImage(" http://pz7e7rpto.bkt.clouddn.com/" + fileName);
+            sinfo.setUid(ufi.getId());
+            int results = shi.insertShopping(sinfo);
+            return "forward:/index.html?fb=" + results;
+        }else if(ss.equals("修改"))
+        {
+            String fileName = QiNiutool.upload(imageS);
+            sinfo.setImage(" http://pz7e7rpto.bkt.clouddn.com/" + fileName);
+              if(shi.UpdateService(sinfo)>0)
+              {
+                  System.out.println("ssssss");
+                  return "forward:/index.html";
+              }
+        }
+        return "";
     }
-
 }

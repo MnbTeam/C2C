@@ -2,7 +2,7 @@
  * Created by alone on 2017/5/16.
  */
 $(function () {
-    var curFirst = 0;
+    var curFirst =0;
     var curSecond = 0;
     updateSecondSelect();
     $('.title_input').bind('focus',function () {

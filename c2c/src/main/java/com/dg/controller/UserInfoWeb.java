@@ -2,6 +2,7 @@ package com.dg.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.dg.pojo.ShopInformation;
 import com.dg.pojo.Userinformation;
 import com.dg.service.Impl.UserInformationServiceImpl;
 import com.dg.service.PlaseShopService;
@@ -86,6 +87,11 @@ public class UserInfoWeb {
         List<Integer> li=new ArrayList<>();
         int id=ufi.getId();
         mo.addAttribute("SelectUid",shops.selectUid(i,id));
+       /* List<ShopInformation> list=new ArrayList<>();
+        for (ShopInformation sh:shops.selectUid(i,id)) {
+            list.add(shops.SelectClass(sh.getId()));
+        }
+        mo.addAttribute("SelectClass",list);*/
         for (int k=1;k<=shops.selectUid(i,id).getPages();k++) {
             li.add(k);
         }

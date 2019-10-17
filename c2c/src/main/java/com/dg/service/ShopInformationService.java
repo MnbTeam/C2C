@@ -16,4 +16,7 @@ public interface ShopInformationService {
     ShopInformation SelectSid(int id);
     int Product(int id);
     int insertShopping(ShopInformation shi);
+    ShopInformation SelectClass(int id);
+    int UpdateService(ShopInformation id);
+    Page<ShopInformation> selectUserProduct(int id,String name,int i);
 }

@@ -66,14 +66,38 @@
         }
     </style>
 </head>
+<script type="text/javascript">
+    $(function () {
+        $('.search_icon').click(function () {
+            var name = $('.nav_search_input').val();
+            window.location.href = '/findUserShopByName.do?name=' + name;
+        });
+    })
+</script>
 <body>
-<header th:include="header.html :: copy"></header>
+<header class="copy" th:fragment="copy">
+    <span class="short_nav"></span>
+    <div class="home_icon">
+        <a href="/" style="text-decoration: none;color: white">C2C</a>
+    </div>
+    <input type="text" placeholder="查询用户商品" name="search" class="nav_search_input"/>
+    <span class="search_icon"></span>
+    <span class="user_icon"></span>
+    <span class="login_or_register_string">
+        <!--判断是否有登陆，两者相互替换-->
+        <a href="/page/login_page.html" th:if="${session.userInformation.username}==null" id="user_name_a" >登录</a>
+        <a href="/page/login_page.html"  th:if="${session.userInformation.username}==null">注册</a>
+        <a href="/page/personal_info.do" class="user_name_a"
+           th:if="${session.userInformation.username!=null}" th:text="${session.userInformation.username}" th:value="${session.userInformation.phone}" id="user_name_a"></a>
+    </span>
+</header>
 <div th:include="short_nav_show.html :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="my_nav.html :: my_nav" class="my_nav"></nav>
 <div th:include="personal_nav.html :: personal_nav" class="personal_nav"></div>
 <div class="temp_content">
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="product_content_div">
+        <span th:if="${SelectUid.size() < 1}" style="font-weight: bold">你还没发布商品，赶紧上架吧！</span>
         <figure class="detail_product" th:each="s:${SelectUid}">
             <div class="product_img_div">
                 <img th:src="${s.image}"  class="show_img"/>
@@ -81,7 +105,9 @@
             <p class="show_tip" ></p>
             <span class="detail_product_name"  th:text="${s.name}" th:value="${s.id}">Big block Lether Bag</span><br/>
             <span class="detail_product_cost" th:text="${s.price}">$350.00</span><br/>
-            <span class="detail_type" >数码科技-手机-苹果</span>
+            <span class="detail_type"  th:text="${s.al.name}+'-'+${s.cl.cname}+'-'+${s.sp.sname}" >数码科技-手机-苹果</span><br/>
+            <span style="font-weight: bold;color: green" th:if="${s.display == 2}" th:text="'已上架'"></span>
+            <span  style="font-weight: bold;color: red" th:if="${s.display == 1}" th:text="'待审核'"></span>
             <div class="delete_and_update"><img src="/img/pencil.jpg" th:value="${s.id}" class="update_publish" />
                 <img src="/img/delete_icon.jpg" th:value="${s.id}" class="delete_publish" /></div>
         </figure>

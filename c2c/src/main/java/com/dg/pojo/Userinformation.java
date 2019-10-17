@@ -3,11 +3,12 @@ package com.dg.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
-public class Userinformation {
+public class Userinformation implements Serializable {
     private Integer id;
     private Date modified;
     private String username;

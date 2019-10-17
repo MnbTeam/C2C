@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface UserWantService {
     int insertUserWant(UserWant uw);//发布求购
+    int UpdateUserWant(UserWant uw);//修改求购
 }

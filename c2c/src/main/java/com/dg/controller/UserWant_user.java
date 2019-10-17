@@ -27,4 +27,18 @@ public class UserWant_user {
         int results=uwsi.insertUserWant(uw);
         return "forward:/index.html";
     }
+    @RequestMapping("publishUserWant.do")
+    public String publishUserWant(UserWant uw,HttpSession session,int id)
+    {
+        Userinformation ufi=(Userinformation)session.getAttribute("userInformation");
+        uw.setUid(ufi.getId());
+        uw.setId(id);
+        if(uwsi.UpdateUserWant(uw)>0) {
+            return "forward:/index.html";
+        }else
+            {
+                return "modified_require_product.do?id="+ufi.getId();
+            }
+    }
+
 }

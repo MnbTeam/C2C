@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///c2c?serverTimezone=UTC
     username: root
-    password: root
+    password: 123456
   thymeleaf:
     encoding: UTF-8
     cache: false
@@ -24,5 +24,25 @@ spring:
     suffix: .html
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-
+#  redis:
+#    database: 0
+#    #host: 119.23.221.110
+#    #port: 6379
+#    password: 123456
+#    timeout: 604800s
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 5
+#        min-idle: -1
+#    cluster:
+#      nodes:
+#      - 119.23.221.110:6379
+#      - 119.23.221.110:6380
+#      - 119.23.221.110:6381
+#    sentinel:
+#      master: mymaster
+#      nodes:
+#      - 119.23.221.110:26379
 

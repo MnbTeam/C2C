@@ -34,6 +34,38 @@ public class ShopInformation implements Serializable {
     private String thumbnails;
     private int count;
 
+    private AllKinds al;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public AllKinds getAl() {
+        return al;
+    }
+
+    public void setAl(AllKinds al) {
+        this.al = al;
+    }
+
+    public Classification getCl() {
+        return cl;
+    }
+
+    public void setCl(Classification cl) {
+        this.cl = cl;
+    }
+
+    public Specific getSp() {
+        return sp;
+    }
+
+    public void setSp(Specific sp) {
+        this.sp = sp;
+    }
+
+    private Classification cl;
+    private Specific sp;
     public Userinformation getUs() {
         return us;
     }

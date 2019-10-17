@@ -25,4 +25,10 @@ ShopInformation SelectSid(int id);
 int Product(int id);
     //发布
     int insertShopping(ShopInformation shi);
+    //查询商品详细信息的分类
+    ShopInformation SelectClass(int id);
+    //修改商品
+    int UpdateService(ShopInformation id);
+    //模糊查询用户商品
+    List<ShopInformation> selectUserProduct(int id,String name);
 }

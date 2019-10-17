@@ -2,17 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dg.dao.ShopInformationMapper" >
 <select id="selectTop" resultType="ShopInformation">
-  SELECT * FROM shopinformation ORDER BY sales DESC LIMIT 0,5
+  SELECT * FROM shopinformation where display=2 ORDER BY sales DESC LIMIT 0,5
+
 </select>
   <select id="selectNew" resultType="ShopInformation">
-    SELECT * FROM shopinformation ORDER BY modified DESC LIMIT 1,4
+    SELECT * FROM shopinformation where display=2 ORDER BY modified DESC LIMIT 1,4
   </select>
   <select id="selectNewOne" resultType="ShopInformation">
-    SELECT * FROM shopinformation ORDER BY modified DESC LIMIT 0,1
+    SELECT * FROM shopinformation where display=2 ORDER BY modified DESC LIMIT 0,1
   </select>
   <resultMap id="Shop" type="ShopInformation">
     <id column="id" property="id"></id>
+    <id column="id" property="id"></id>
     <association property="us" javaType="Userinformation">
+    </association>
+  </resultMap>
+  <resultMap id="Class" type="ShopInformation">
+    <association property="al" javaType="Allkinds">
+      <result column="aname" property="name"/>
+    </association>
+    <association property="cl" javaType="Classification">
+      <result column="cname" property="cname"/>
+    </association>
+    <association property="sp" javaType="Specific">
+      <result column="sname" property="sname"/>
     </association>
   </resultMap>
   <select id="selectdetails" resultMap="Shop">
@@ -23,14 +36,21 @@
   </select>
   <select id="selectLike" resultType="ShopInformation">
     SELECT * FROM `shopinformation`
-    WHERE NAME LIKE "%"#{name}"%"
+    WHERE NAME LIKE "%"#{name}"%" and display=2
   </select>
   <select id="selectAll" resultType="ShopInformation">
     SELECT * FROM `shopinformation`
+    where display=2
   </select>
-  <select id="selectUid" resultType="ShopInformation">
-    SELECT * FROM `shopinformation`
-    WHERE uid=#{id}
+  <select id="selectUid" resultMap="Class">
+    SELECT s.*,a.name aname,c.name cname,f.name sname FROM `shopinformation` s
+                                                            INNER JOIN `specifickinds` f
+                                                                       ON s.sort=f.id
+                                                            INNER JOIN `classification` c
+                                                                       ON f.cid=c.id
+                                                            INNER JOIN `allkinds` a
+                                                                       ON c.aid=a.id
+    WHERE s.uid=#{id}
   </select>
   <select id="SelectSid" resultType="ShopInformation">
     SELECT * FROM `shopinformation`
@@ -44,4 +64,29 @@
   <insert id="insertShopping" keyColumn="id" keyProperty="id" parameterType="ShopInformation">
     INSERT INTO `shopinformation` VALUES(0,NOW(),#{name},#{level},#{remark},#{price},#{sort},1,#{quantity},1,0,#{uid},#{image},#{thumbnails})
   </insert>
+  <select id="SelectClass" resultMap="Class">
+    SELECT s.*,a.name aname,c.name cname,f.name sname FROM `shopinformation` s
+                                                        INNER JOIN `specifickinds` f
+                                                                   ON s.sort=f.id
+                                                        INNER JOIN `classification` c
+                                                                   ON f.cid=c.id
+                                                        INNER JOIN `allkinds` a
+                                                                   ON c.aid=a.id
+    WHERE s.id=#{id}
+  </select>
+  <update id="UpdateService">
+    UPDATE `shopinformation` SET `modified`=NOW(),`name`=#{name},`level`=#{level},`remark`=#{remark},`price`=#{price},`sort`=#{sort},`quantity`=#{quantity}
+            ,image=#{image}
+    WHERE id=#{id}
+  </update>
+  <select id="selectUserProduct" resultMap="Class">
+    SELECT s.*,a.name aname,c.name cname,f.name sname FROM `shopinformation` s
+                                                             INNER JOIN `specifickinds` f
+                                                                        ON s.sort=f.id
+                                                             INNER JOIN `classification` c
+                                                                        ON f.cid=c.id
+                                                             INNER JOIN `allkinds` a
+                                                                        ON c.aid=a.id
+    WHERE s.uid =#{id} AND s.NAME LIKE "%" #{name} "%"
+  </select>
 </mapper>

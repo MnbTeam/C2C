@@ -15,4 +15,8 @@
     <insert id="insertUserWant" parameterType="UserWant" keyColumn="id" keyProperty="id">
         INSERT INTO userwant VALUES(0,NOW(),1,#{name},#{sort},#{quantity},#{price},#{remark},#{uid})
     </insert>
+    <update id="UpdateUserWant">
+        UPDATE `userwant` SET `modified`=NOW(),`display`=1,`name`=#{name},`sort`=#{sort},`quantity`=#{quantity},`price`=#{price},`remark`=#{remark}
+        where id=#{id}
+    </update>
 </mapper>

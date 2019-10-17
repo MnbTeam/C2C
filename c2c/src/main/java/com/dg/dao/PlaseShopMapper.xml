@@ -14,6 +14,8 @@
         SELECT * FROM `userwant` w
         INNER JOIN `userinformation` u
         ON w.uid=u.id
+        WHERE uid=#{id}
+        ORDER BY w.`modified` DESC
     </select>
     <delete id="deletePlase">
         DELETE FROM `userwant`
@@ -22,5 +24,17 @@
     <select id="SelectUidWant" resultType="UserWant">
         SELECT * FROM `userwant`
         WHERE id =#{id}
+    </select>
+    <select id="WantLike" resultMap="ant">
+        SELECT w.*,u.phone FROM `userwant` w
+        INNER JOIN `userinformation` u
+        ON w.uid=u.id
+        WHERE `name` LIKE "%"#{name}"%"  OR remark LIKE "%"#{remark}"%"
+    </select>
+    <select id="UserWantLike" resultMap="ant">
+        SELECT w.*,u.phone FROM `userwant` w
+        INNER JOIN `userinformation` u
+        ON w.uid=u.id
+        WHERE w.uid =#{uid} AND NAME LIKE "%"#{name}"%"
     </select>
 </mapper>

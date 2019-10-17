@@ -17,11 +17,30 @@
                 var id=$('.Sid').val();
             window.location.href='details?id='+id;
             })
+            $('.search_icon').click(function () {
+                var name = $('.nav_search_input').val();
+                window.location.href = "/findShopByName.do?name=" + name;
+            });
         })
     </script>
 </head>
 <body>
-<header th:include="header :: copy"></header>
+<header class="copy" th:fragment="copy">
+    <span class="short_nav"></span>
+    <div class="home_icon">
+        <a href="/" style="text-decoration: none;color: white">C2C</a>
+    </div>
+    <input type="text" placeholder="查询商品" name="search" class="nav_search_input"/>
+    <span class="search_icon"></span>
+    <span class="user_icon"></span>
+    <span class="login_or_register_string">
+        <!--判断是否有登陆，两者相互替换-->
+        <a href="/page/login_page.html" th:if="${session.userInformation.username}==null" id="user_name_a" >登录</a>
+        <a href="/page/login_page.html"  th:if="${session.userInformation.username}==null">注册</a>
+        <a href="/page/personal_info.do" class="user_name_a"
+           th:if="${session.userInformation.username!=null}" th:text="${session.userInformation.username}" th:value="${session.userInformation.phone}" id="user_name_a"></a>
+    </span>
+</header>
 <div th:include="short_nav_show :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="my_nav :: my_nav" class="my_nav"></nav>
 <div th:include="personal_nav :: personal_nav" class="personal_nav"></div>
